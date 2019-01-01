@@ -1,6 +1,6 @@
 {
   "name": "array-matcher",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Object or Array matcher module.",
   "main": "dist/array-matcher.js",
   "module": "dist/array-matcher.mjs",
