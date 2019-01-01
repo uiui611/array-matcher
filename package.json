@@ -1,5 +1,5 @@
 {
-  "name": "array-matcher",
+  "name": "@mizu-mizu/array-matcher",
   "version": "1.0.0",
   "description": "Object or Array matcher module.",
   "main": "dist/array-matcher.js",
