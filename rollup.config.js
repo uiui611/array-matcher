@@ -3,6 +3,7 @@ const banner = `
 /*
  * @mizu-mizu/array-matcher.js VERSION ${package_json.version}
  * Released under the MIT License.
+ *   https://github.com/uiui611/array-matcher/blob/master/LICENSE
  */
 `;
 function transform(code, id){
