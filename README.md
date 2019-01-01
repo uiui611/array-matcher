@@ -13,6 +13,11 @@ In a browser:
 ```
 (Required ES Modules support and 'array-matcher.mjs' should be on the same directory.)
 
+In a Node.JS:
+```javascript
+const arrayMatcher = require('array-matcher');
+```
+
 ## Features
 Some tiny matcher generators are provided, and you can implement your own matcher.
 ### Glob matching (string array)
