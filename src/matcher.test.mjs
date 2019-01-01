@@ -1,4 +1,4 @@
-import {CompilerBase, match, matchResult} from './matcher';
+import {CompilerBase, match, MATCH_OR_SYMBOL, matchResult} from './matcher';
 import assert from 'assert';
 
 describe('Matching test.', ()=>{
@@ -113,6 +113,18 @@ describe('Matching test.', ()=>{
     it('Match for matchResult.ANY_CONSUME at the end.', ()=>{
         assert.ok(match(
             [s=>s==='first', s=>s==='second', ()=>matchResult.ANY_CONSUME],
+            ['first', 'second']
+        ));
+    });
+    it('Match for first pattern of MATCH_OR_SYMBOL', ()=>{
+        assert.ok(match(
+            [s=>s==='first', s=>s==='second', MATCH_OR_SYMBOL, s=>s==='third'],
+            ['first', 'second']
+        ));
+    });
+    it('Match for after pattern of MATCH_OR_SYMBOL', ()=>{
+        assert.ok(match(
+            [ s=>s==='illegal', MATCH_OR_SYMBOL, s=>s==='first', s=>s==='second'],
             ['first', 'second']
         ));
     });

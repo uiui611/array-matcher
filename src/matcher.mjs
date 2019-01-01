@@ -33,6 +33,14 @@ export const matchResult = Object.freeze({
 });
 
 /**
+ * The label for {@link match} to split patterns.
+ *
+ * Whichever left-side pattern or right-side pattern of this symbol allows input,
+ *   the {@link match} returns `true`.
+ * @type {symbol}
+ */
+export const MATCH_OR_SYMBOL = Symbol('MATCH OR SYMBOL');
+/**
  * A matcher that always returns the {@link matchResult.ANY_CONSUME}.
  * @type {matcher}
  */
@@ -87,15 +95,44 @@ function matchToLinkedList(patternList, targetList){
 
 /**
  * Test if the target list is match for the specified functions.
- * @param {function[]} pattern The matching function's array.
+ *
+ * If the pattern contains {@link MATCH_OR_SYMBOL}, the pattern is split,
+ *   and the match is success when either pattern passed.
+ * @param {Array.<function|MATCH_OR_SYMBOL>} pattern The matching function's array.
  * @param {any[]} target The matching target.
  * @returns {boolean} true if the pattern matches for the target.
+ * @example
+ * match(
+ *   [s=>NO_OR_ONE_CONSUME, s=>s==='second'],
+ *   ['first', 'second']
+ * ); // => true
+ * match(
+ *   [s=>s==='illegal', MATCH_OR_SYMBOL, s=>s==='first', s=>s==='second'],
+ *   ['first', 'second']
+ * ); // => true
+ *
  */
 export function match(pattern, target){
-    return matchToLinkedList(
-        LinkedList.fromArray(pattern),
-        LinkedList.fromArray(target)
-    );
+    const patternSplit = [];
+    let index = 0;
+    let from = 0;
+    while(index<pattern.length){
+        if(pattern[index]===MATCH_OR_SYMBOL){
+            if(index>from){
+                patternSplit.push(pattern.slice(from, index));
+            }
+            from = index+1;
+        }
+        index++;
+    }
+    if(from<=pattern.length-1) patternSplit.push(pattern.slice(from));
+    for(let ps of patternSplit){
+        if(matchToLinkedList(
+            LinkedList.fromArray(ps),
+            LinkedList.fromArray(target)
+        )) return true;
+    }
+    return false;
 }
 
 /**
