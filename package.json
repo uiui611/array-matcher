@@ -1,7 +1,7 @@
 {
   "name": "@mizu-mizu/array-matcher",
   "version": "1.0.0",
-  "description": "Object or Array matcher module.",
+  "description": "Array matching utilities.",
   "main": "dist/array-matcher.js",
   "module": "dist/array-matcher.mjs",
   "jsnext:main": "dist/array-matcher.mjs",
