@@ -7,7 +7,7 @@
   "jsnext:main": "dist/array-matcher.mjs",
   "author": "mizu-mizu",
   "license": "MIT",
-  "repository": "github:mizu-mizu/array-matcher",
+  "repository": "github:uiui611/array-matcher",
   "scripts": {
     "test:unit": "mocha src/**/*.test.mjs --require @babel/register",
     "pretest:black-box": "npm run build",
