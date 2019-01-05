@@ -7,6 +7,11 @@ describe('Query Selector compiler test.', ()=>{
         assert.ok(matcher([{tagName:'first'}, {tagName:'target'}]));
         assert.ok(!matcher([{tagName:'first'}, {tagName:'end'}]));
     });
+    it('Start from white space.', ()=>{
+        const matcher = querySelector(' target');
+        assert.ok(matcher([{tagName:'first'}, {tagName:'target'}]));
+        assert.ok(!matcher([{tagName:'first'}, {tagName:'end'}]));
+    });
     it('Class selector.', ()=>{
         const matcher = querySelector('.target-class');
         assert.ok(matcher([{}, {classList:['target-class']}]));
@@ -36,5 +41,17 @@ describe('Query Selector compiler test.', ()=>{
         assert.ok( matcher([{}, {tagName: 'target', classList:['target-class']}]));
         assert.ok(!matcher([{}, {tagName: 'first' , classList:['target-class']}]));
         assert.ok(!matcher([{}, {tagName: 'target', classList:['other-class']}]));
-    })
+    });
+    it('Comma selector.', ()=>{
+        const matcher = querySelector('target,end');
+        assert.ok( matcher([{}, {tagName: 'target'}]));
+        assert.ok(!matcher([{}, {tagName: 'end'}]));
+        assert.ok(!matcher([{tagName: 'target'}, {tagName: 'noTarget'}]));
+    });
+    it('Comma selector with white spaces.', ()=>{
+        const matcher = querySelector('target , end');
+        assert.ok( matcher([{}, {tagName: 'target'}]));
+        assert.ok(!matcher([{}, {tagName: 'end'}]));
+        assert.ok(!matcher([{}, {tagName: 'noTarget'}]));
+    });
 });

@@ -14,8 +14,11 @@ In a browser:
 (Required ES Modules support and 'array-matcher.mjs' should be on the same directory.)
 
 In a Node.JS:
+```
+npm install --save @mizu-mizu/array-matcher
+```
 ```javascript
-const arrayMatcher = require('array-matcher');
+const arrayMatcher = require('@mizu-mizu/array-matcher');
 ```
 
 ## Features
@@ -48,8 +51,9 @@ Supports:
 - `tagname`: match whose `tagName` property is the same to 'tagname'.
 - `.class-selector`: match whose classList contains 'class-selector' as an array, or it's contains('class-selector') method returns true.
 - `#id` : match whose `id` property is the same to 'id'.
-- `>` : separator to it's child
+- `>` : separator to it's child.
 - ` ` : separator to it's descendant.
+- `,` : separator match for either left part or right part.
 
 ### Create your own matcher
 Using matcher functions list:
@@ -57,7 +61,8 @@ Using matcher functions list:
 import {matchResult, match} from './array-matcher.mjs';
 /*
  * Prepare an array of matching functions.
- * This example matches all array whose first element is 'first' (not depends on it's letter case).
+ * This example matches all array whose first element is 'first'
+ *   (not depends on it's letter case).
  */
 const matcherList = [
     str=>str.toLowerCase() === 'first' ? matchResult.OK : matchResult.FAIL,
@@ -76,13 +81,15 @@ import {CompilerBase, matchResult} from './array-matcher.mjs';
  */
 class OriginalMatcherCompiler extends CompilerBase{
     /*
-     * If you provide a string in the argument array of this#compile(), this method is called.
+     * If you provide a string in the argument array of this#compile(),
+     *   this method is called.
      * This method should return a matching function.
      */
     acceptString(str) {
         /* To support glob-like recursive match. */
         if(str==='**') return ()=>matchResult.ANY_CONSUME;
-        return target=>(target&& target.toLowerCase())===str ? matchResult.OK : matchResult.FAIL;
+        return target=>(target&& target.toLowerCase())===str 
+                ? matchResult.OK : matchResult.FAIL;
     }
 }
 const matcher = new OriginalMatcherCompiler().compile(
@@ -91,5 +98,4 @@ const matcher = new OriginalMatcherCompiler().compile(
 matcher(['first', 'second']); // => true
 matcher(['FIRST', 'SECOND']); // => true
 matcher(['illegal', 'first', 'second']); // => false
-
 ```
