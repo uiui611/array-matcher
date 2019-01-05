@@ -1,6 +1,6 @@
 
 /*
- * @mizu-mizu/array-matcher.js VERSION 1.0.0
+ * @mizu-mizu/array-matcher.js VERSION 1.1.0
  * Released under the MIT License.
  *   https://github.com/uiui611/array-matcher/blob/master/LICENSE
  */
