@@ -51,8 +51,9 @@ Supports:
 - `tagname`: match whose `tagName` property is the same to 'tagname'.
 - `.class-selector`: match whose classList contains 'class-selector' as an array, or it's contains('class-selector') method returns true.
 - `#id` : match whose `id` property is the same to 'id'.
-- `>` : separator to it's child
+- `>` : separator to it's child.
 - ` ` : separator to it's descendant.
+- `,` : separator match for either left part or right part.
 
 ### Create your own matcher
 Using matcher functions list:

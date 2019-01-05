@@ -233,6 +233,7 @@ export class CompilerBase{
     accept(pattern){
         if(pattern instanceof RegExp) return this.acceptRegexp(pattern);
         if(Array.isArray(pattern)) return this.acceptArray(pattern);
+        if(pattern===MATCH_OR_SYMBOL) return pattern;
         switch(typeof pattern){
             case 'string'  : return this.acceptString(pattern);
             case 'function': return this.acceptFunction(pattern);

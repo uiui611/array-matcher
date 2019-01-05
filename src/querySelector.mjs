@@ -6,7 +6,7 @@
  * @file
  * @author mizu-mizu
  */
-import {ANY_CONSUME_MATCHER, CompilerBase, matchResult} from "./matcher";
+import {ANY_CONSUME_MATCHER, CompilerBase, MATCH_OR_SYMBOL, matchResult} from "./matcher";
 import {LinkedList} from "./util";
 
 const charType = Object.freeze({
@@ -21,7 +21,7 @@ const charTable = new Array(0x80).fill(0)
     .map((v, i)=>/\s/         .test(String.fromCharCode(i)) ? charType.WHITE_SPACE : v)
     .map((v, i)=>/[\w-]/      .test(String.fromCharCode(i)) ? charType.WORD_CHAR   : v)
     .map((v, i)=>/["'`]/      .test(String.fromCharCode(i)) ? charType.QUOTE       : v)
-    .map((v, i)=>/[.#[\]+~:>]/.test(String.fromCharCode(i)) ? charType.OPERATOR    : v);
+    .map((v, i)=>/[.#[\]+~:>,]/.test(String.fromCharCode(i)) ? charType.OPERATOR    : v);
 
 function getCharType(ch){
     if(!ch) return charType.WHITE_SPACE;
@@ -135,12 +135,21 @@ class QueryParser{
         const {tokens, result} = this;
         if(getCharType(tokens.current[0])!==charType.WHITE_SPACE) return false;
         tokens.shift();
+        if(tokens.current===',') return false;
         result.push(ANY_CONSUME_MATCHER);
         return true;
     }
     childSeparator(){
         if(this.tokens.current !== '>') return false;
         this.tokens.shift();
+        return true;
+    }
+    commaSeparator(){
+        const {tokens, result} = this;
+        if(tokens.current!==',') return false;
+        result.push(MATCH_OR_SYMBOL);
+        tokens.shift();
+        if(getCharType(tokens.current)===charType.WHITE_SPACE) tokens.shift();
         return true;
     }
     selector(){
@@ -165,6 +174,7 @@ class QueryParser{
         return(
             this.space()
             || this.childSeparator()
+            || this.commaSeparator()
         );
     }
     parse(){
