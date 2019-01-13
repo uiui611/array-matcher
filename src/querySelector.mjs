@@ -16,12 +16,11 @@ const charType = Object.freeze({
     QUOTE      : Symbol('QUOTE'),
     UNKNOWN    : Symbol('UNKNOWN')
 });
-const charTable = new Array(0x80).fill(0)
-    .map(()=>charType.UNKNOWN)
+const charTable = new Array(0x80).fill(charType.UNKNOWN)
     .map((v, i)=>/\s/         .test(String.fromCharCode(i)) ? charType.WHITE_SPACE : v)
     .map((v, i)=>/[\w-]/      .test(String.fromCharCode(i)) ? charType.WORD_CHAR   : v)
     .map((v, i)=>/["'`]/      .test(String.fromCharCode(i)) ? charType.QUOTE       : v)
-    .map((v, i)=>/[.#[\]+~:>,]/.test(String.fromCharCode(i)) ? charType.OPERATOR    : v);
+    .map((v, i)=>/[.#[\]+~:>,]/.test(String.fromCharCode(i)) ? charType.OPERATOR   : v);
 
 function getCharType(ch){
     if(!ch) return charType.WHITE_SPACE;
@@ -102,7 +101,7 @@ class QueryParser{
         result.push(obj=>{
             const list = obj.classList;
             if(!list) return matchResult.FAIL;
-            if(Array.isArray(list)) return list.indexOf(label) >= 0 ? matchResult.OK : matchResult.FAIL;
+            if(Array.isArray(list)) return list.includes(label) ? matchResult.OK : matchResult.FAIL;
             else if(list.contains) return list.contains(label) ? matchResult.OK : matchResult.FAIL;
             else return matchResult.FAIL;
         });

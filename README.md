@@ -6,12 +6,15 @@ This script works in modern browsers and Node.JS .
 
 ## Installation
 In a browser:
+
+Download the file as 'array-matcher.mjs' from 
+[github | master](https://raw.githubusercontent.com/uiui611/array-matcher/master/dist/array-matcher.mjs)
+next to the html, and insert `import` in the script tag.
 ```html
 <script type="module">
     import * as arrayMatcher from './array-matcher.mjs';
 </script>
 ```
-(Required ES Modules support and 'array-matcher.mjs' should be on the same directory.)
 
 In a Node.JS:
 ```
@@ -22,7 +25,7 @@ const arrayMatcher = require('@mizu-mizu/array-matcher');
 ```
 
 ## Features
-Some tiny matcher generators are provided, and you can implement your own matcher.
+Some tiny matcher generators are provided, and also, you can implement your own matcher.
 ### Glob matching (string array)
 ```javascript
 import {glob} from './array-matcher.mjs';
@@ -99,3 +102,16 @@ matcher(['first', 'second']); // => true
 matcher(['FIRST', 'SECOND']); // => true
 matcher(['illegal', 'first', 'second']); // => false
 ```
+
+## Documents
+
+You can check the detail document by running commands below (JSDoc).
+```cmd
+git clone https://github.com/uiui611/array-matcher.git
+cd array-matcher
+npm install
+npm run jsdoc
+start jsdoc/index.html
+```
+
+Also, you can check the examples at ['{project-root}/examples/'](https://github.com/uiui611/array-matcher/tree/master/examples).
