@@ -2,6 +2,11 @@ import {matchResult, match, CompilerBase} from '../dist/array-matcher';
 import assert from 'assert';
 
 describe('CREATE ORIGINAL MATCHER', ()=>{
+    /*
+     * match() accepts matching functions.
+     * Each function should returns any of matchResult's property.
+     * The matchresult.OK consume any number of data (the same to '**' on glob-matching).
+     */
     it('Create matcher using a function array.', ()=>{
         /*
          * Prepare an array of matching functions.
@@ -18,6 +23,12 @@ describe('CREATE ORIGINAL MATCHER', ()=>{
         ];
         assert.deepStrictEqual(results, [true, true, false]);
     });
+    /*
+     * You can create original matcher implementing CompilerBase.
+     * The compiler base build matching function by calling #compile() method.
+     * You can change it's behavior by overriding
+     *   acceptString(), acceptRegexp(), acceptArray(), acceptFunction(), or acceptBoolean().
+     */
     it('Create matcher using the CompilerBase class.', ()=>{
         /*
          * Implements the CompilerBase and override some methods.

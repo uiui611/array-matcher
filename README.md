@@ -102,3 +102,16 @@ matcher(['first', 'second']); // => true
 matcher(['FIRST', 'SECOND']); // => true
 matcher(['illegal', 'first', 'second']); // => false
 ```
+
+## Documents
+
+You can check the detail document by running commands below (JSDoc).
+```cmd
+git clone https://github.com/uiui611/array-matcher.git
+cd array-matcher
+npm install
+npm run jsdoc
+start jsdoc/index.html
+```
+
+Also, you can check the examples at ['{project-root}/examples/'](https://github.com/uiui611/array-matcher/tree/master/examples).
