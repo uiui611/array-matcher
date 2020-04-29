@@ -7,12 +7,12 @@ This script works in modern browsers and Node.JS .
 ## Installation
 In a browser:
 
-Download the file as 'array-matcher.mjs' from 
+Download the file as 'array-matcher.js' from 
 [github | master](https://raw.githubusercontent.com/uiui611/array-matcher/master/dist/array-matcher.mjs)
 next to the html, and insert `import` in the script tag.
 ```html
 <script type="module">
-    import * as arrayMatcher from './array-matcher.mjs';
+    import * as arrayMatcher from './array-matcher.js';
 </script>
 ```
 
@@ -28,7 +28,7 @@ const arrayMatcher = require('@mizu-mizu/array-matcher');
 Some tiny matcher generators are provided, and also, you can implement your own matcher.
 ### Glob matching (string array)
 ```javascript
-import {glob} from './array-matcher.mjs';
+import {glob} from './array-matcher.js';
 const matcher = glob('root/**/*.txt');
 matcher(['root', 'parent', 'child.txt']);  // => true
 matcher(['root', 'parent', 'child.json']); // => false
@@ -42,7 +42,7 @@ Supports:
 
 ### Css-like matching (object array)
 ```javascript
-import {querySelector} from './array-matcher.mjs';
+import {querySelector} from './array-matcher.js';
 const matcher = querySelector('#target');
 matcher([
     {tagName: 'body'},
@@ -61,7 +61,7 @@ Supports:
 ### Create your own matcher
 Using matcher functions list:
 ```javascript
-import {matchResult, match} from './array-matcher.mjs';
+import {matchResult, match} from './array-matcher.js';
 /*
  * Prepare an array of matching functions.
  * This example matches all array whose first element is 'first'
@@ -78,7 +78,7 @@ match(matcherList, ['illegal', 'first', 'second']); // => false
 
 Implements the CompilerBase class:
 ```javascript
-import {CompilerBase, matchResult} from './array-matcher.mjs';
+import {CompilerBase, matchResult} from './array-matcher.js';
 /*
  * Implements the CompilerBase and override some methods.
  */
